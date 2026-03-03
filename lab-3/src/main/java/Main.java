@@ -5,6 +5,7 @@ public class Main {
                 {1, 2, 3, 2},
                 {4, 5, 6, 2},
                 {4, 5, 6, 2},
+                {4, 5, 6, 2},
                 {4, 5, 6, 2}
         };
 
@@ -18,7 +19,7 @@ public class Main {
         var result = calc.MultiplyMatrix(matrixA, matrixB);
         printMatrix(result);
         System.out.print("\n");
-        IMatrixCalculator calc2 = new StripeMatrixCalculator(4);
+        IMatrixCalculator calc2 = new StripeMatrixCalculator(2);
         var result2 = calc2.MultiplyMatrix(matrixA, matrixB);
         printMatrix(result2);
     }
