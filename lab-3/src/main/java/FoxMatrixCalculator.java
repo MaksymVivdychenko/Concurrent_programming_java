@@ -60,13 +60,11 @@ class FoxMatrixCalculator implements IMatrixCalculator {
             }
         }
 
-        // Оптимізоване множення блоків (порядок циклів i-k-j для кращої роботи з кешем)
         private void computePartialProduct(int[][] a, int[][] b, int[][] c) {
             for (int i = 0; i < chunkSize; i++) {
-                for (int k = 0; k < chunkSize; k++) {
-                    int aVal = a[i][k];
-                    for (int j = 0; j < chunkSize; j++) {
-                        c[i][j] += aVal * b[k][j];
+                for (int j = 0; j < chunkSize; j++) {
+                    for (int k = 0; k < chunkSize; k++) {
+                        c[i][j] += a[i][k] * b[k][j];
                     }
                 }
             }
