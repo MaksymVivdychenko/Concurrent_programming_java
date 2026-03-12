@@ -1,39 +1,42 @@
+package task_1;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
-class FolderSearchTask extends RecursiveTask<Long> {
+class FolderCalculationTask extends RecursiveTask<long[]> {
     private final Folder folder;
-    private final String searchedWord;
 
-    FolderSearchTask(Folder folder, String searchedWord) {
+    FolderCalculationTask(Folder folder) {
         this.folder = folder;
-        this.searchedWord = searchedWord;
     }
 
     @Override
-    protected Long compute() {
-        long count = 0;
-        List<RecursiveTask<Long>> forks = new LinkedList<>();
+    protected long[] compute() {
+        long[] wordsAndCount =  new long[50];
+        List<RecursiveTask<long[]>> forks = new LinkedList<>();
 
         // Створюємо підзавдання для підпапок
         for (Folder subFolder : folder.getSubFolders()) {
-            FolderSearchTask task = new FolderSearchTask(subFolder, searchedWord);
+            FolderCalculationTask task = new FolderCalculationTask(subFolder);
             forks.add(task);
             task.fork(); // Запуск у фоні
         }
 
         // Створюємо підзавдання для документів
         for (Document document : folder.getDocuments()) {
-            DocumentSearchTask task = new DocumentSearchTask(document, searchedWord);
+            DocumentCalculationTask task = new DocumentCalculationTask(document);
             forks.add(task);
             task.fork(); // Запуск у фоні
         }
 
         // Збираємо результати
-        for (RecursiveTask<Long> task : forks) {
-            count += task.join(); // Очікування та отримання результату
+        for (RecursiveTask<long[]> task : forks) {
+            var array = task.join();
+            for (int i = 0; i < array.length; i++) {
+                wordsAndCount[i] += array[i];
+            }
         }
-        return count;
+        return wordsAndCount;
     }
 }
