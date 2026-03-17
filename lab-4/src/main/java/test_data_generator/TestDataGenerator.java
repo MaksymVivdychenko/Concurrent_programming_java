@@ -1,4 +1,4 @@
-package task_1;
+package test_data_generator;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

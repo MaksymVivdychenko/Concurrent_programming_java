@@ -6,6 +6,7 @@ import java.util.concurrent.ForkJoinPool;
 
 public class WordCounterApp {
     private final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    private static final int maxWordLength = 13;
 
     long[] analyzeInParallel(Folder folder) {
         return forkJoinPool.invoke(new FolderCalculationTask(folder));
@@ -34,14 +35,38 @@ public class WordCounterApp {
 
         WordCounterApp app = new WordCounterApp();
 
-        long[] result = app.analyzeInParallel(root);
-        analyze(result);
-        for (int i = 0; i < result.length; i++) {
-            if (result[i] == 0) {
+        // --- 1. Послідовне виконання ---
+        long startSingle = System.nanoTime();
+        long[] resultSingle = app.analyzeOnSingleThread(root);
+        long endSingle = System.nanoTime();
+        long timeSingleMs = (endSingle - startSingle) / 1_000_000; // конвертація наносекунд у мілісекунди
+
+        System.out.println("Час послідовного виконання: " + timeSingleMs + " мс");
+
+        // --- 2. Паралельне виконання ---
+        long startParallel = System.nanoTime();
+        long[] resultParallel = app.analyzeInParallel(root);
+        long endParallel = System.nanoTime();
+        long timeParallelMs = (endParallel - startParallel) / 1_000_000;
+        double speedUp = (double)timeSingleMs / timeParallelMs;
+
+        System.out.println("Час паралельного виконання: " +  timeParallelMs + " мс");
+
+        System.out.println("\n--------------------------------");
+        System.out.printf("Прискорення: %.2fх\n", speedUp);
+        System.out.println("--------------------------------\n");
+
+        // --- 3. Вивід аналітики (на основі паралельного результату) ---
+        analyze(resultParallel);
+
+        System.out.println("\nДеталізація масиву:");
+        for (int i = 1; i < maxWordLength; i++) {
+            if (resultParallel[i] == 0) {
                 break;
             }
-            System.out.print(i + ": " + result[i] + " ");
+            System.out.print(i + ": " + resultParallel[i] + " ");
         }
+        System.out.println();
     }
 
     public static void analyze(long[] counts) {
@@ -69,6 +94,6 @@ public class WordCounterApp {
         double standardDeviation = Math.sqrt(varianceSum / totalWords);
 
         System.out.printf("Середнє значення (Mean): %.2f\n", mean);
-        System.out.printf("СД відхилення (Std Dev): %.2f\n", standardDeviation);
+        System.out.printf("СК відхилення (Std Dev): %.2f\n", standardDeviation);
     }
 }

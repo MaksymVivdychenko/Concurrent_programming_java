@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.concurrent.RecursiveTask;
 
 class DocumentCalculationTask extends RecursiveTask<long[]> {
+    private final int TRESHOLD = 50;
     private final Document document;
     private final int startIndex;
     private final int endIndex;
@@ -18,7 +19,7 @@ class DocumentCalculationTask extends RecursiveTask<long[]> {
     @Override
     protected long[] compute() {
         long[] wordsAndCount = new long[50];
-        if (endIndex - startIndex < 50) {
+        if (endIndex - startIndex < TRESHOLD) {
             return TextAnalyzer.AnalyzeText(document.getLines(), startIndex, endIndex);
         }
         int middleIndex = startIndex + (endIndex - startIndex) / 2;
