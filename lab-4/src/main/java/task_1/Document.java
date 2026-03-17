@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ class Document {
     }
 
     static Document fromFile(File file) throws IOException {
-        List<String> lines = new LinkedList<>();
+        List<String> lines = new ArrayList<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line = reader.readLine();
             while (line != null) {

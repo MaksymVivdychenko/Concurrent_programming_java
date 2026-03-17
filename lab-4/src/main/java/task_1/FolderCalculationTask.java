@@ -25,7 +25,7 @@ class FolderCalculationTask extends RecursiveTask<long[]> {
 
         // Створюємо підзавдання для документів
         for (Document document : folder.getDocuments()) {
-            DocumentCalculationTask task = new DocumentCalculationTask(document);
+            DocumentCalculationTask task = new DocumentCalculationTask(document, 0, document.getLines().size());
             forks.add(task);
             task.fork(); // Запуск у фоні
         }

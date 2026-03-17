@@ -20,7 +20,7 @@ public class WordCounterApp {
             }
         }
         for (Document document : folder.getDocuments()) {
-            var wordsAndSizeFromFolder = TextAnalyzer.AnalyzeText(document);
+            var wordsAndSizeFromFolder = TextAnalyzer.AnalyzeText(document.getLines(), 0, document.getLines().size());
             for (int i = 0; i < wordsAndSizeFromFolder.length; i++) {
                 wordsAndSize[i] += wordsAndSizeFromFolder[i];
             }

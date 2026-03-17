@@ -1,12 +1,14 @@
 package task_1;
 
+import java.util.List;
+
 public class TextAnalyzer {
     private static final int wordMaxSize = 50;
 
-    public static long[] AnalyzeText(Document document) {
+    public static long[] AnalyzeText(List<String> lines, int start, int end) {
         long[] wordAndSize = new long[wordMaxSize];
-        for (String line : document.getLines()) {
-            for (String word : getFilteredWords(line)) {
+        for (int i = start; i < end; i++) {
+            for (String word : getFilteredWords(lines.get(i))) {
 
                 wordAndSize[word.length()]++;
             }
