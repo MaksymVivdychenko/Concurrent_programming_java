@@ -11,7 +11,7 @@ public class TextAnalyzer {
         int keywordsEncounters = 0;
         for (int i = start; i < end; i++) {
             String[] wordsFromText = getFilteredWords(lines.get(i));
-            keywordsEncounters = Math.toIntExact(Arrays.stream(wordsFromText)
+            keywordsEncounters += Math.toIntExact(Arrays.stream(wordsFromText)
                     .filter(keywords::contains) // Залишаємо тільки ті слова, що є в словнику
                     .count());
         }
