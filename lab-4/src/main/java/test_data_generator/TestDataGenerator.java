@@ -59,7 +59,7 @@ class DataGenerator {
     private void generateRandomFile(Path path) throws IOException {
         int lineCount = RANDOM.nextInt(100) + 20; // 20-120 рядків
 
-        // З імовірністю 5% файл буде належати до категорії "ІТ"
+        // З імовірністю 1% файл буде належати до категорії "ІТ"
         boolean isItFile = RANDOM.nextDouble() < 0.01;
 
         // Формуємо пул слів для ін'єкції в цей конкретний файл
@@ -82,11 +82,11 @@ class DataGenerator {
                 StringBuilder sb = new StringBuilder();
 
                 for (int j = 0; j < wordsInLine; j++) {
-                    // З невеликою ймовірністю (або якщо це кінець рядка і залишились слова) вставляємо наше слово
+                    // З невеликою ймовірністю вставляємо наше слово
                     if (!wordsToInject.isEmpty() && RANDOM.nextDouble() < 0.05) {
                         sb.append(wordsToInject.removeLast()).append(" ");
                     } else {
-                        // Інакше генеруємо випадкову абракадабру
+                        //генеруємо випадковий рядок
                         int wordLength = RANDOM.nextInt(12) + 1;
                         sb.append(generateRandomString(wordLength)).append(" ");
                     }
@@ -95,7 +95,7 @@ class DataGenerator {
                 writer.newLine();
             }
 
-            // Захисний механізм: якщо після генерації всіх рядків якісь слова для ін'єкції залишилися
+            // якщо після генерації всіх рядків якісь слова для ін'єкції залишилися
             // (наприклад, через низьку ймовірність 0.05), просто дописуємо їх у кінець файлу.
             if (!wordsToInject.isEmpty()) {
                 StringBuilder sb = new StringBuilder();

@@ -39,7 +39,7 @@ public class WordCounterApp {
         long startSingle = System.nanoTime();
         long[] resultSingle = app.analyzeOnSingleThread(root);
         long endSingle = System.nanoTime();
-        long timeSingleMs = (endSingle - startSingle) / 1_000_000; // конвертація наносекунд у мілісекунди
+        long timeSingleMs = (endSingle - startSingle) / 1_000_000;
 
         System.out.println("Час послідовного виконання: " + timeSingleMs + " мс");
 
@@ -56,7 +56,7 @@ public class WordCounterApp {
         System.out.printf("Прискорення: %.2fх\n", speedUp);
         System.out.println("--------------------------------\n");
 
-        // --- 3. Вивід аналітики (на основі паралельного результату) ---
+        // --- 3. Вивід аналітики ---
         analyze(resultParallel);
 
         System.out.println("\nДеталізація масиву:");

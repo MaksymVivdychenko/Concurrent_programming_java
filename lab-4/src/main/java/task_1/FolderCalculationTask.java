@@ -16,21 +16,18 @@ class FolderCalculationTask extends RecursiveTask<long[]> {
         long[] wordsAndCount =  new long[50];
         List<RecursiveTask<long[]>> forks = new LinkedList<>();
 
-        // Створюємо підзавдання для підпапок
         for (Folder subFolder : folder.getSubFolders()) {
             FolderCalculationTask task = new FolderCalculationTask(subFolder);
             forks.add(task);
-            task.fork(); // Запуск у фоні
+            task.fork();
         }
 
-        // Створюємо підзавдання для документів
         for (Document document : folder.getDocuments()) {
             DocumentCalculationTask task = new DocumentCalculationTask(document, 0, document.getLines().size());
             forks.add(task);
-            task.fork(); // Запуск у фоні
+            task.fork();
         }
 
-        // Збираємо результати
         for (RecursiveTask<long[]> task : forks) {
             var array = task.join();
             for (int i = 0; i < array.length; i++) {
