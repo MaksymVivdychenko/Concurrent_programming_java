@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        var countOfSimulation = 1000;
+        var countOfSimulation = 10;
         var consumerTimerMs = 50;
         var simulationTimerS = 3;
         var queueCapacity = 5;

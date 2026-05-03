@@ -73,9 +73,9 @@ public class MatrixBenchmarker {
     public static void main(String[] args) {
         String host = "localhost";
         int port = 8080;
-        int iterations = 3;
+        int iterations = 1;
 
-        System.out.println("=== Починаємо тестування ===");
+        System.out.println("=== тестування ===");
         System.out.printf("%-10s | %-10s | %-20s%n", "Режим", "Розмір", "Сер. час (мс)");
         System.out.println("----------------------------------------------------------");
 

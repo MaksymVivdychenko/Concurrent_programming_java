@@ -80,10 +80,10 @@ public class Client {
     public static void main(String[] args) throws IOException {
         String host = args[0];
         int port = Integer.parseInt(args[1]);
-        int mode = args.length > 2 ? Integer.parseInt(args[2]) : 1;
-        int n = args.length > 3 ? Integer.parseInt(args[3]) : 500;
-        int m = args.length > 4 ? Integer.parseInt(args[4]) : 500;
-        int p = args.length > 5 ? Integer.parseInt(args[5]) : 500;
+        int mode = Integer.parseInt(args[2]);
+        int n = Integer.parseInt(args[3]);
+        int m = Integer.parseInt(args[4]);
+        int p = Integer.parseInt(args[5]);
         Client client = new Client(host, port);
         client.executeTask(mode, n, m, p);
         client.disconnect();

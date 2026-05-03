@@ -38,7 +38,7 @@ public class Main {
         Random rand = new Random();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                matrix[i][j] = rand.nextInt();
+                matrix[i][j] = rand.nextInt(1000);
             }
         }
         return matrix;
